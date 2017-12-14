@@ -1,0 +1,11 @@
+FROM alpine
+COPY entry-point.sh /
+RUN chmod a+rwx entry-point.sh
+RUN apk update && \
+    apk upgrade && \
+    apk add git
+RUN mkdir /var/www
+RUN chmod -R a+rwx /var/www
+RUN cd /var/www && \
+    git clone https://github.com/schoolofdevops/html-sample-app.git
+ENTRYPOINT /entry-point.sh
